@@ -1,7 +1,11 @@
 package com.example.yvtc.yvd042605;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -21,6 +25,17 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void click1(View v)
+    {
+        SQLiteDatabase db;
+        db = SQLiteDatabase.openDatabase(outFilename, null, MODE_PRIVATE);
+        Cursor c = db.rawQuery("Select * from students", null);
+        c.moveToFirst();
+        String n = c.getString(1);
+        Toast.makeText(MainActivity.this, n, Toast.LENGTH_SHORT).show();
+        db.close();
     }
 
     private void copyDatabase() throws IOException {
